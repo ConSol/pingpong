@@ -4,6 +4,9 @@ import de.consol.dus.reporter.boundary.http.endpoint.ReportDto;
 import de.consol.dus.reporter.boundary.persistence.ReportEntity;
 import de.consol.dus.reporter.boundary.persistence.ReportRepository;
 import de.consol.dus.reporter.report.mapper.ReportMapper;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +22,15 @@ public class ReportService {
     entity.setTimePing(toSave.getTimePing());
     entity.setTimePong(toSave.getTimePong());
     return reportMapper.entityToDto(reportRepository.save(entity));
+  }
+
+  public List<ReportDto> getAllReports() {
+    return reportRepository.findAll().stream()
+        .map(reportMapper::entityToDto)
+        .collect(Collectors.toList());
+  }
+
+  public Optional<ReportDto> findByGameId(String gameId) {
+    return reportRepository.findByGameId(gameId).map(reportMapper::entityToDto);
   }
 }

@@ -5,18 +5,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "games")
+@Table(name = "games", schema = "public")
 @Getter
 @Setter
 public class ReportEntity {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id")
+  @SequenceGenerator(
+      name = "GamesIdGenerator",
+      sequenceName = "games__seq__id",
+      allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GamesIdGenerator")
   private Long id;
 
   @Column(name = "game_id", nullable = false)
