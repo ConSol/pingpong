@@ -2,12 +2,12 @@ server:
   port: 8080
 spring:
   artemis:
-    broker-url: tcp://localhost:61616
-    user: artemis
-    password: artemis
+    broker-url: ${ARTEMIS_URL:tcp://localhost:61616}
+    user: ${ARTEMIS_USERNAME:artemis}
+    password: ${ARTEMIS_PASSWORD:artemis}
   kafka:
     producer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_HOST:localhost:9092}
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
