@@ -1,0 +1,11 @@
+server:
+  port: 8082
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:${DB_TYPE:oracle}:thin://${DB_HOST:localhost:1521}/${DB_NAME:reporter}
+    username: ${DB_USER:reporter}
+    password: ${DB_PASSWORD:reporter}
