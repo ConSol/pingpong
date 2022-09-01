@@ -1,5 +1,6 @@
 package de.consol.dus.reporter.report;
 
+import de.consol.dus.reporter.boundary.http.client.Fruits;
 import de.consol.dus.reporter.boundary.http.endpoint.ReportResponse;
 import de.consol.dus.reporter.boundary.http.endpoint.SaveReportRequest;
 import de.consol.dus.reporter.boundary.persistence.ReportEntity;
@@ -16,18 +17,22 @@ import org.springframework.stereotype.Service;
 public class ReportService {
   private final ReportMapper reportMapper;
   private final ReportRepository reportRepository;
+  private final Fruits fruits;
 
   public ReportResponse saveOrUpdateReport(SaveReportRequest toSave) {
     ReportEntity entity = reportRepository.findByGameId(toSave.getGameId())
         .orElseGet(() -> reportMapper.requestToEntity(toSave));
     entity.setTimePing(toSave.getTimePing());
     entity.setTimePong(toSave.getTimePong());
-    if (toSave.getTimePing() < toSave.getTimePong()) {
+    if (entity.getTimePing() < entity.getTimePong()) {
       entity.setWinner("ping");
-    } else if (toSave.getTimePing() > toSave.getTimePong()) {
+      entity.setReward(fruits.getRandomFruitName());
+    } else if (entity.getTimePing() > entity.getTimePong()) {
       entity.setWinner("pong");
+      entity.setReward(fruits.getRandomFruitName());
     } else {
       entity.setWinner("draw");
+      entity.setReward(null);
     }
     return reportMapper.entityToResponse(reportRepository.save(entity));
   }

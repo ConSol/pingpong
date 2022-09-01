@@ -15,4 +15,5 @@ public class ReportResponse {
   long timePong;
   int roundsPlayed;
   String winner;
+  String reward;
 }

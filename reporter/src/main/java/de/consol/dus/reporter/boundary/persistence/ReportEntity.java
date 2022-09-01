@@ -37,4 +37,7 @@ public class ReportEntity {
 
   @Column(name = "winner")
   private String winner;
+
+  @Column(name = "reward")
+  private String reward;
 }
