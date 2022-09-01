@@ -5,25 +5,28 @@ import de.consol.dus.pong.game.Game;
 import java.time.Instant;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
 @Log4j2
 public class Producer {
-  private static final String MESSAGES_TOPIC = "messages-activemq";
-
+  private final String destination;
   private final JmsTemplate jmsTemplate;
 
-  public Producer(@Qualifier(JmsGameTemplateConfig.JMS_GAME_TEMPLATE) JmsTemplate jmsTemplate) {
+  public Producer(
+          @Value("${messaging.activemq.destination}") String destination,
+          @Qualifier(JmsGameTemplateConfig.JMS_GAME_TEMPLATE) JmsTemplate jmsTemplate) {
+    this.destination = destination;
     this.jmsTemplate = jmsTemplate;
   }
 
 
   public void send(Game game) {
     jmsTemplate.setPubSubDomain(true);
-    log.info("Sending message [{}] to jms-topic [{}]", game, MESSAGES_TOPIC);
-    jmsTemplate.convertAndSend(MESSAGES_TOPIC, game, message -> {
+    log.info("Sending message [{}] to jms-topic [{}]", game, destination);
+    jmsTemplate.convertAndSend(destination, game, message -> {
       message.setLongProperty("CREATION_TIME", Instant.now().toEpochMilli());
       return message;
     });

@@ -5,32 +5,44 @@ import de.consol.dus.ping.boundary.http.client.Reporter;
 import de.consol.dus.ping.boundary.messaging.producer.kafka.Producer;
 import de.consol.dus.ping.game.Game;
 import de.consol.dus.ping.game.GameService;
-import java.time.Instant;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+
 @Service
 @Log4j2
-@RequiredArgsConstructor
 public class Consumer {
-  protected static final String MESSAGES_TOPIC = "messages-activemq";
+  private final String destination;
 
   private final GameService gameService;
   private final Producer producer;
   private final Reporter reporter;
 
+  public Consumer(
+          @Value("${messaging.activemq.destination}") String destination,
+          GameService gameService,
+          Producer producer,
+          Reporter reporter) {
+    this.destination = destination;
+    this.gameService = gameService;
+    this.producer = producer;
+    this.reporter = reporter;
+  }
+
+
   @JmsListener(
-      destination = MESSAGES_TOPIC,
+      destination = "${messaging.activemq.destination}",
       containerFactory = "jmsListenerFactory",
-      subscription = "ping")
+      subscription = "${messaging.activemq.subscription}")
   public void consume(
       Game game,
       @Header("CREATION_TIME") long creationTime) {
     final Instant timestamp = Instant.ofEpochMilli(creationTime);
-    log.info("received game [{}] from kafka-topic [{}] at {}", game, MESSAGES_TOPIC, timestamp);
+    log.info("received game [{}] from kafka-topic [{}] at {}", game, destination, timestamp);
     final Instant now = Instant.now();
     final long pingDelta = now.toEpochMilli() - timestamp.toEpochMilli();
     final Game nextRound = gameService.incrementGamesPlayedByOne(

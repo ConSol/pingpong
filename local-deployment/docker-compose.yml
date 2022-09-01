@@ -12,7 +12,7 @@ services:
       ARTEMIS_PASSWORD: artemis
       KAFKA_BOOTSTRAP_HOST: kafka:19092
       REPORTER_BASE_URL: http://reporter:8080/reports
-      spring_profiles_active: prod,json-logging
+      spring_profiles_active: prod
     ports:
       - "8080:8080"
     depends_on:
@@ -30,7 +30,7 @@ services:
       ARTEMIS_PASSWORD: artemis
       KAFKA_BOOTSTRAP_HOST: kafka:19092
       REPORTER_BASE_URL: http://reporter:8080/reports
-      spring_profiles_active: prod,json-logging
+      spring_profiles_active: prod
     ports:
       - "8081:8080"
     depends_on:
@@ -53,15 +53,6 @@ services:
     depends_on:
       - artemis
       - kafka
-  oracle:
-    image: gvenzl/oracle-xe@sha256:c50ba0a0c2d49ea0671d901cdc7efa8eb04ff850470018a4bd09ce313f364358
-    environment:
-      ORACLE_PASSWORD: oracle
-      ORACLE_DATABASE: reporter
-      APP_USER: reporter
-      APP_USER_PASSWORD: reporter
-    ports:
-      - "1521:1521"
   # postgres + pgadmin4 web UI
   postgres:
     image: postgres:14.1-alpine@sha256:884c142deb4a141f67489c807534ec6139f13b9a6432d2f87a4de283aaec0b5c
