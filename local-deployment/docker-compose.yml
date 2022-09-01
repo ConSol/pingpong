@@ -1,5 +1,56 @@
 version: "3.7"
 services:
+  ping:
+    profiles:
+      - apps
+    build:
+      context: ../ping
+      dockerfile: ../dockerfile/Dockerfile.distroless
+    environment:
+      ARTEMIS_URL: tcp://artemis:61616
+      ARTEMIS_USERNAME: artemis
+      ARTEMIS_PASSWORD: artemis
+      KAFKA_BOOTSTRAP_HOST: kafka:19092
+      spring_profiles_active: prod
+    ports:
+      - "8080:8080"
+    depends_on:
+      - artemis
+      - kafka
+  pong:
+    profiles:
+      - apps
+    build:
+      context: ../pong
+      dockerfile: ../dockerfile/Dockerfile.distroless
+    environment:
+      ARTEMIS_URL: tcp://artemis:61616
+      ARTEMIS_USERNAME: artemis
+      ARTEMIS_PASSWORD: artemis
+      KAFKA_BOOTSTRAP_HOST: kafka:19092
+      spring_profiles_active: prod
+    ports:
+      - "8081:8080"
+    depends_on:
+      - artemis
+      - kafka
+  reporter:
+    profiles:
+      - apps
+    build:
+      context: ../reporter
+      dockerfile: ../dockerfile/Dockerfile.distroless
+    environment:
+      DB_HOST: postgres:5432
+      DB_NAME: reporter
+      DB_USERNAME: reporter
+      DB_PASSWORD: reporter
+      spring_profiles_active: prod
+    ports:
+      - "8082:8080"
+    depends_on:
+      - artemis
+      - kafka
   oracle:
     image: gvenzl/oracle-xe@sha256:c50ba0a0c2d49ea0671d901cdc7efa8eb04ff850470018a4bd09ce313f364358
     environment:

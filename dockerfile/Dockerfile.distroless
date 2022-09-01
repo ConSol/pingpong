@@ -1,0 +1,14 @@
+# JRE 17:
+# Source: https://console.cloud.google.com/gcr/images/distroless/global/java17@sha256:e942c49fc2e6f7eacaf4ea6edf12f40f1a2c81454ba18c51df78c90b34df24b1/details?tab=vulnz
+FROM registry.access.redhat.com/ubi8/openjdk-17@sha256:4b74bdf6941e38705d75996c89e7ce3c1a9874884056e7f05cdf1890cd0d8076
+
+ENV LANG="en_US.UTF-8" LANGUAGE="en_US:en"
+
+COPY --chown=185 target/emptydir /deployment
+COPY --chown=185 target/*.jar /deployment/app.jar
+
+USER 185
+WORKDIR /deployment
+
+ENTRYPOINT [ "java", "-jar", "app.jar" ]
+

@@ -1,6 +1,9 @@
 server:
-  port: 8082
+  port: ${HTTP_PORT:8080}
 spring:
+  config:
+    activate:
+      on-profile: dev
   jpa:
     hibernate:
       ddl-auto: none
@@ -9,3 +12,5 @@ spring:
     url: jdbc:${DB_TYPE:postgresql}://${DB_HOST:localhost:5432}/${DB_NAME:reporter}
     username: ${DB_USER:reporter}
     password: ${DB_PASSWORD:reporter}
+  jmx:
+    enabled: true
