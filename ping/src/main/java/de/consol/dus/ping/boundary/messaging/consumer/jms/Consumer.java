@@ -36,6 +36,7 @@ public class Consumer {
     final Game nextRound = gameService.incrementGamesPlayedByOne(
         gameService.increaseTimePingBy(game, pingDelta));
     if (nextRound.getRoundsPlayed() >= nextRound.getRoundsToPlay()) {
+      log.info("Last round, game is over. Result: [{}]", nextRound);
       reporter.postReport(ReportDto.builder()
           .gameId(nextRound.getId().toString())
           .timePing(nextRound.getTimePing())

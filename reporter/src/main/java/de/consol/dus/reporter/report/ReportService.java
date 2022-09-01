@@ -21,6 +21,13 @@ public class ReportService {
         .orElseGet(() -> reportMapper.dtoToEntity(toSave));
     entity.setTimePing(toSave.getTimePing());
     entity.setTimePong(toSave.getTimePong());
+    if (toSave.getTimePing() < toSave.getTimePong()) {
+      entity.setWinner("ping");
+    } else if (toSave.getTimePing() < toSave.getTimePong()) {
+      entity.setWinner("pong");
+    } else {
+      entity.setWinner("draw");
+    }
     return reportMapper.entityToDto(reportRepository.save(entity));
   }
 

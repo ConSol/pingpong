@@ -1,7 +1,8 @@
 package de.consol.dus.pong.boundary.messaging.consumer.kafka;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.consol.dus.pong.boundary.http.client.ReportDto;
+import de.consol.dus.pong.boundary.http.client.Reporter;
 import de.consol.dus.pong.boundary.messaging.producer.jms.Producer;
 import de.consol.dus.pong.game.Game;
 import de.consol.dus.pong.game.GameService;
@@ -21,7 +22,7 @@ public class Consumer {
 
   private final GameService gameService;
   private final Producer producer;
-  private final ObjectMapper objectMapper;
+  private final Reporter reporter;
 
   @KafkaListener(topics = MESSAGES_TOPIC, groupId = "pong")
   public void consume(
@@ -36,6 +37,12 @@ public class Consumer {
         gameService.increaseTimePongBy(game, pongDelta));
     if (nextRound.getRoundsPlayed() >= nextRound.getRoundsToPlay()) {
       log.info("Last round, game is over. Result: [{}]", nextRound);
+      reporter.postReport(ReportDto.builder()
+          .gameId(nextRound.getId().toString())
+          .timePing(nextRound.getTimePing())
+          .timePong(nextRound.getTimePong())
+          .roundsPlayed(nextRound.getRoundsPlayed())
+          .build());
     } else {
       producer.send(nextRound);
     }

@@ -1,4 +1,4 @@
-package de.consol.dus.ping.boundary.http.client;
+package de.consol.dus.pong.boundary.http.client;
 
 import java.net.URI;
 import lombok.extern.log4j.Log4j2;
