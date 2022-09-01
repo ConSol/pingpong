@@ -16,7 +16,7 @@
     <properties>
         <antrun-plugin.version>3.1.0</antrun-plugin.version>
         <flyway-plugin.version>8.5.12</flyway-plugin.version>
-        <java.version>17</java.version>
+        <java.version>11</java.version>
         <org.projectlombok.version>1.18.20</org.projectlombok.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
     </properties>

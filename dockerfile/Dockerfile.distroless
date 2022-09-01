@@ -1,6 +1,9 @@
 # JRE 17:
 # Source: https://console.cloud.google.com/gcr/images/distroless/global/java17@sha256:e942c49fc2e6f7eacaf4ea6edf12f40f1a2c81454ba18c51df78c90b34df24b1/details?tab=vulnz
-FROM registry.access.redhat.com/ubi8/openjdk-17@sha256:4b74bdf6941e38705d75996c89e7ce3c1a9874884056e7f05cdf1890cd0d8076
+# Java 17
+#FROM registry.access.redhat.com/ubi8/openjdk-17@sha256:4b74bdf6941e38705d75996c89e7ce3c1a9874884056e7f05cdf1890cd0d8076
+# Java 11
+FROM registry.access.redhat.com/ubi8/openjdk-11@sha256:a83e149339f8f61120dd2e38959252aea3bb04e08565a5669b2d0d67d1a5f8db
 
 ENV LANG="en_US.UTF-8" LANGUAGE="en_US:en"
 

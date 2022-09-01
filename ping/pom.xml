@@ -15,7 +15,7 @@
     <description>Demo project for GDV workshop: Ping</description>
     <properties>
         <antrun-plugin.version>3.1.0</antrun-plugin.version>
-        <java.version>17</java.version>
+        <java.version>11</java.version>
     </properties>
     <dependencies>
         <!-- Annotation processors -->

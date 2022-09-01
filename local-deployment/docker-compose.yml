@@ -11,6 +11,7 @@ services:
       ARTEMIS_USERNAME: artemis
       ARTEMIS_PASSWORD: artemis
       KAFKA_BOOTSTRAP_HOST: kafka:19092
+      REPORTER_BASE_URL: http://reporter:8080/reports
       spring_profiles_active: prod
     ports:
       - "8080:8080"
@@ -28,6 +29,7 @@ services:
       ARTEMIS_USERNAME: artemis
       ARTEMIS_PASSWORD: artemis
       KAFKA_BOOTSTRAP_HOST: kafka:19092
+      REPORTER_BASE_URL: http://reporter:8080/reports
       spring_profiles_active: prod
     ports:
       - "8081:8080"
