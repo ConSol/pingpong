@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Log4j2
 @RequiredArgsConstructor
 public class Consumer {
-  protected static final String MESSAGES_TOPIC = "messages";
+  protected static final String MESSAGES_TOPIC = "messages-activemq";
 
   private final GameService gameService;
   private final Producer producer;

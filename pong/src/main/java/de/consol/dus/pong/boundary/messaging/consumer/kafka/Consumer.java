@@ -1,6 +1,5 @@
 package de.consol.dus.pong.boundary.messaging.consumer.kafka;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.consol.dus.pong.boundary.http.client.ReportDto;
 import de.consol.dus.pong.boundary.http.client.Reporter;
 import de.consol.dus.pong.boundary.messaging.producer.jms.Producer;
@@ -18,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class Consumer {
-  protected static final String MESSAGES_TOPIC = "messages";
+  protected static final String MESSAGES_TOPIC = "messages-kafka";
 
   private final GameService gameService;
   private final Producer producer;

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Log4j2
 public class Producer {
-  private static final String MESSAGES_TOPIC = "messages";
+  private static final String MESSAGES_TOPIC = "messages-activemq";
 
   private final JmsTemplate jmsTemplate;
 

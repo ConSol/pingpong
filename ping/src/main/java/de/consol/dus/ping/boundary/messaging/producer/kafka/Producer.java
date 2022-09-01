@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Log4j2
 @RequiredArgsConstructor
 public class Producer {
-  private static final String MESSAGES_TOPIC = "messages";
+  private static final String MESSAGES_TOPIC = "messages-kafka";
 
   private final KafkaTemplate<String, Game> kafkaTemplate;
 
