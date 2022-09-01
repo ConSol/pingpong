@@ -6,7 +6,7 @@ Configuration:
       name: Console
       target: SYSTEM_OUT
       follow: true
-#      JsonTemplateLayout: {}
+      JsonTemplateLayout: {}
   Loggers:
     Root:
       level: info

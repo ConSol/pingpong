@@ -7,6 +7,7 @@ import de.consol.dus.reporter.boundary.persistence.ReportRepository;
 import de.consol.dus.reporter.report.mapper.ReportMapper;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,7 @@ public class ReportService {
   public List<ReportResponse> getAllReports() {
     return reportRepository.findAll().stream()
         .map(reportMapper::entityToResponse)
-        .toList();
+        .collect(Collectors.toList());
   }
 
   public Optional<ReportResponse> findByGameId(String gameId) {
