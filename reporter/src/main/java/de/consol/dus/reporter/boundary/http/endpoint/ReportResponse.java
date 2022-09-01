@@ -9,9 +9,10 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @Builder
 @AllArgsConstructor
-public class ReportDto {
+public class ReportResponse {
   String gameId;
   long timePing;
   long timePong;
   int roundsPlayed;
+  String winner;
 }

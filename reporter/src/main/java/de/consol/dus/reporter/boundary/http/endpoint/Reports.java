@@ -1,6 +1,7 @@
 package de.consol.dus.reporter.boundary.http.endpoint;
 
 import de.consol.dus.reporter.report.ReportService;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -20,21 +21,21 @@ public class Reports {
   private final ReportService reportService;
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ReportDto> saveReport(@RequestBody ReportDto toSave) {
-    final ReportDto response = reportService.saveOrUpdateReport(toSave);
-    return ResponseEntity.created(null).body(response);
+  public ResponseEntity<ReportResponse> saveReport(@RequestBody SaveReportRequest toSave) {
+    final ReportResponse response = reportService.saveOrUpdateReport(toSave);
+    return ResponseEntity.created(URI.create("reports/" + response.getGameId())).body(response);
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<ReportDto>> getReports() {
-    final List<ReportDto> reports = reportService.getAllReports();
+  public ResponseEntity<List<ReportResponse>> getReports() {
+    final List<ReportResponse> reports = reportService.getAllReports();
     return ResponseEntity.ok(reports);
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   @RequestMapping("{gameId}")
-  public ResponseEntity<ReportDto> getReport(@PathVariable("gameId") String gameId) {
-    Optional<ReportDto> maybeReport = reportService.findByGameId(gameId);
+  public ResponseEntity<ReportResponse> getReport(@PathVariable("gameId") String gameId) {
+    Optional<ReportResponse> maybeReport = reportService.findByGameId(gameId);
     return maybeReport.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
   }
 }
