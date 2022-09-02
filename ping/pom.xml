@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>de.consol</groupId>
-    <artifactId>gdv-ping</artifactId>
+    <artifactId>consol-pingpong-ping</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>GDV :: ping</name>
-    <description>Demo project for GDV workshop: Ping</description>
+    <name>ConSol :: pingpong :: ping</name>
+    <description>Demo project for instana demo: Ping</description>
     <properties>
         <antrun-plugin.version>3.1.0</antrun-plugin.version>
         <java.version>11</java.version>
@@ -94,19 +94,6 @@
                         </exclude>
                     </excludes>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>build-info</goal>
-                        </goals>
-                        <configuration>
-                            <additionalProperties>
-                                <name>${project.artifactId}</name>
-                                <version>${project.version}</version>
-                            </additionalProperties>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
