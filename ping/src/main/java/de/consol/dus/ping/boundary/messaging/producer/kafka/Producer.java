@@ -28,7 +28,7 @@ public class Producer {
 
     public void send(Game game) {
         final String id = UUID.randomUUID().toString();
-        log.info("Sending game [{}] with to kafka-topic [{}]", game, destination);
+        log.trace("Sending game [{}] with to kafka-topic [{}]", game, destination);
         kafkaTemplate.send(MessageBuilder.withPayload(game)
                 .setHeaderIfAbsent("CREATION_TIME", Instant.now().toEpochMilli())
                 .setHeaderIfAbsent(KafkaHeaders.TOPIC, destination)

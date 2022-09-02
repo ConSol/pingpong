@@ -42,7 +42,7 @@ public class Consumer {
     final Instant now = Instant.now();
     final Instant timestamp = Instant.ofEpochMilli(creationTime);
     final Game game = consumerRecord.value();
-    log.info("received game [{}] from kafka-topic [{}] at {}", game, destination, timestamp);
+    log.trace("received game [{}] from kafka-topic [{}] at {}", game, destination, timestamp);
     final long pongDelta = now.toEpochMilli() - timestamp.toEpochMilli();
     final Game nextRound = gameService.incrementGamesPlayedByOne(
         gameService.increaseTimePongBy(game, pongDelta));

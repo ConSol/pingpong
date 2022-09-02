@@ -25,7 +25,7 @@ public class Producer {
 
   public void send(Game game) {
     jmsTemplate.setPubSubDomain(true);
-    log.info("Sending message [{}] to jms-topic [{}]", game, destination);
+    log.trace("Sending message [{}] to jms-topic [{}]", game, destination);
     jmsTemplate.convertAndSend(destination, game, message -> {
       message.setLongProperty("CREATION_TIME", Instant.now().toEpochMilli());
       return message;
