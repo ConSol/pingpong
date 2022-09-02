@@ -14,27 +14,26 @@ server:
 web-clients:
   fruits:
     base-url: ${FRUIT_BASE_URL:https://www.fruityvice.com/api/fruit/all}
+management:
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+      probes:
+        enabled: true
+    metrics:
+      enabled: true
+    env:
+      enabled: true
 
 ---
 spring:
   config:
     activate:
       on-profile: prod
-  jpa:
-    hibernate:
-      ddl-auto: none
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-  datasource:
-    url: jdbc:${DB_TYPE:postgresql}://${DB_HOST:localhost:5432}/${DB_NAME:reporter}
-    username: ${DB_USER:reporter}
-    password: ${DB_PASSWORD:reporter}
-  jmx:
-    enabled: true
 server:
   port: 8080
-web-clients:
-  fruits:
-    base-url: ${FRUIT_BASE_URL:https://www.fruityvice.com/api/fruit/all}
 
 ---
 spring:

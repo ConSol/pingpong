@@ -17,6 +17,18 @@ server:
 web-clients:
   reporter:
     base-url: ${REPORTER_BASE_URL:http://localhost:8082/reports}
+management:
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+      probes:
+        enabled: true
+    metrics:
+      enabled: true
+    env:
+      enabled: true
 messaging:
   activemq:
     destination: messages-activemq
@@ -29,8 +41,6 @@ spring:
   config:
     activate:
       on-profile: prod
-  jmx:
-    enabled: true
 server:
   port: 8080
 

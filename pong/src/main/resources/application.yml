@@ -19,6 +19,18 @@ server:
 web-clients:
   reporter:
     base-url: ${REPORTER_BASE_URL:http://localhost:8082/reports}
+management:
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+      probes:
+        enabled: true
+    metrics:
+      enabled: true
+    env:
+      enabled: true
 messaging:
   activemq:
     destination: messages-activemq
@@ -31,21 +43,6 @@ spring:
   config:
     activate:
       on-profile: prod
-  activemq:
-    broker-url: ${ARTEMIS_URL:tcp://localhost:61616}
-    user: ${ARTEMIS_USERNAME:artemis}
-    password: ${ARTEMIS_PASSWORD:artemis}
-  kafka:
-    consumer:
-      bootstrap-servers: ${KAFKA_BOOTSTRAP_HOST:localhost:9092}
-      group-id: pong
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        'spring.json.value.default.type': de.consol.dus.pong.game.Game
-  jmx:
-    enabled: true
 server:
   port: 8080
 web-clients:
