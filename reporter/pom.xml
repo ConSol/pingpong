@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>consol-pingpong-reporter</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     <name>ConSol :: pingpong :: reporter</name>
     <description>Demo project for instana demo: Reporter</description>
     <properties>
