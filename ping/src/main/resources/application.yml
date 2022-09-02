@@ -18,6 +18,10 @@ web-clients:
   reporter:
     base-url: ${REPORTER_BASE_URL:http://localhost:8082/reports}
 management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus,health,info,metric
   endpoint:
     info:
       enabled: true
@@ -28,6 +32,8 @@ management:
     metrics:
       enabled: true
     env:
+      enabled: true
+    prometheus:
       enabled: true
 messaging:
   activemq:
